@@ -1,18 +1,24 @@
 name: Docker Image CI
-
+ 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "main" ]
-
+    branches: [ master ]
+ 
 jobs:
-
+ 
   build:
-
+ 
     runs-on: ubuntu-latest
-
+ 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      env:
+        USER: ${{ secrets.USER }}
+        PASS: ${{ secrets.PASS }}   
+      run: |        
+        docker build . --file Dockerfile --tag arunvel1988/devops-ci-demo-2026:v1
+        docker login -u $USER -p $PASS        
+        docker push arunvel1988/devops-ci-demo-2026:v1
