@@ -19,6 +19,6 @@ jobs:
         USER: ${{ secrets.USER }}
         PASS: ${{ secrets.PASS }}   
       run: |        
-        docker build . --file Dockerfile --tag arunvel1988/devops-ci-demo-2026:v1
+        docker build . --file Dockerfile --tag piyushthakur1/devops-ci-demo-2025:v1
         docker login -u $USER -p $PASS        
         docker push arunvel1988/devops-ci-demo-2026:v1
