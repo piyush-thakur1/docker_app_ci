@@ -7,18 +7,18 @@ on:
     branches: [ main ]
  
 jobs:
- 
   build:
- 
     runs-on: ubuntu-latest
  
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+ 
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.PASS }}" | docker login -u "${{ secrets.USER }}" --password-stdin
+ 
     - name: Build the Docker image
-      env:
-        USER: ${{ secrets.USER }}
-        PASS: ${{ secrets.PASS }}   
-      run: |        
-        docker build . --file Dockerfile --tag piyushthakur1/devops-ci-demo-2025:v1
-        docker login -u $USER -p $PASS        
-        docker push arunvel1988/devops-ci-demo-2026:v1
+      run: docker build . --file Dockerfile --tag piyushthakur1/githubwebserver
+ 
+    - name: Push Docker Image
+      run: docker push piyushthakur1/githubwebserver
